@@ -1,0 +1,34 @@
+#ScaleUp
+
+$tenantId = "73f440ae-e135-4d57-84ef-38863a1eb8e8";
+
+$domain = "OASysLiveHostoutlook.onmicrosoft.com";
+
+$appId = "f68415a4-1ebe-4be1-8ff4-0c60d019017b";
+
+$resourceGroupName = "OASYS-DEV";
+
+$appServicePlanName = "ServiceplanSoutheastAsiaDEV"
+
+$password = "Apppassword@123"
+
+$targetTier = "Basic"
+ 
+
+$DayOfWeek = [int] (Get-Date).DayOfWeek
+
+$username = $appId + '@' + $domain;
+
+$pass = ConvertTo-SecureString $password -AsPlainText –Force;
+
+$cred = New-Object -TypeName pscredential –ArgumentList $username, $pass;
+
+ 
+
+If(($DayOfWeek -ne 0) -and ($DayOfWeek -ne 6)){
+
+    Login-AzureRmAccount -Credential $cred -ServicePrincipal –TenantId $tenantId;
+
+    Set-AzureRmAppServicePlan -ResourceGroupName $resourceGroupName -Name $appServicePlanName -Tier $targetTier;
+
+}

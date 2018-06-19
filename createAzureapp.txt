@@ -1,0 +1,22 @@
+
+
+
+Account          : DineshSub@lolctech.com
+SubscriptionName : Microsoft Azure Enterprise
+SubscriptionId   : 66868cec-1509-428d-89e4-7f6ab79bcf4c
+TenantId         : 73f440ae-e135-4d57-84ef-38863a1eb8e8
+Environment      : AzureCloud
+
+
+
+Login-AzureRmAccount
+
+Select-AzureRmSubscription -SubscriptionId "66868cec-1509-428d-89e4-7f6ab79bcf4c"
+
+$pass = ConvertTo-SecureString "Apppassword@123" -AsPlainText –Force;
+
+$app = New-AzureRmADApplication -DisplayName "AppServiceScaleUpDown" -HomePage "https://appserviceScaleupdownuri" -IdentifierUris "https://appserviceScaleupdownuri" -Password $pass;
+
+New-AzureRmADServicePrincipal -ApplicationId $app.ApplicationId;
+
+New-AzureRmRoleAssignment -RoleDefinitionName Contributor -ServicePrincipalName $app.ApplicationId;

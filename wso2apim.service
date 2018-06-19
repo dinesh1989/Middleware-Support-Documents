@@ -1,0 +1,14 @@
+[Unit]
+Description=Wso2 API Manager
+After=syslog.target network.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/VmAdmin/wso2am-2.1.0/bin/wso2apimService.sh start
+ExecStop=/home/VmAdmin/wso2am-2.1.0/bin/wso2apimService.sh stop
+RemainAfterExit=yes
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
